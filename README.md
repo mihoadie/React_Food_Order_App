@@ -1,6 +1,19 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+aim of the project is to cover Modals, Portals, useReducer(), useState(), useContext() and a few tricks like
+
+- catching dynamic props from parent component {...props.attributes}
+- managing the .reduce function with an array => conf /src/components/Layout/HeardCartButton.js file
+- using forwardRef (React.forwardRef(props, ref) =>{ }) to catch inputs and ref.current.value from another components = conf /src/components/Meals/MealItemForm.js in association with /src/UI/Input.js
+- managing numbers with .toFixed(2) method for example
+- managing Arrays: .concat() method as an alternative to .push() methods // and also .filter(()=>{}) and .findIndex(()=>{}) methods
+
+# INSTALL PROJECT
+
+git clone git@github.com:mihoadie/React_Food_Order_App.git
+cd React_Food_Order_App
+npm install
 
 ## Available Scripts
 
@@ -44,6 +57,58 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Component's architecture
+
+                                            index.html      --> main including Portals (for cartModal Management)
+                                                |
+                                             index.js
+                                              app.js      --> useReducer() linked to cartReducer (/store) + CartContext.Provider
+                                                |
+                                                |__________________________________________ Cart.js
+                                               / \                      useContext (CartContext) to get CartList+associated Methods
+                                              /   \                                         |
+                                             /     \                                        |
+                                            /       \                                      Modal.js
+                                           /         \                          including Backdrop and Overlay
+                                Header.js          Meals.js              both encapsulating CartItem thanks to {props.children}
+                                     |                     |                                |
+                                     |                     |                                |
+                                     |                     |                            CartItem.js
+                                     |                     |                    data props: key+name+price+amount
+                                     |                     |                method props: onRemove + onAdd
+                           HeaderCartButton.js              \
+                          useContext + useEffect             \
+                                     |                        \
+                                     |                         \
+                                CartIcon.js                     |\_________________________
+                                 (img svg)                      |                          |
+                                                                |                          |
+                                                         AvailableMeals                MealSummary.js
+                                            with variable containing Available MealsList
+                                                                |
+                                                                |
+                                                            Card.js
+                                               encaps css component ({props.children})
+                                                                |
+                                                                |
+                                                            MealItem.js
+                                                data props: key +name+price+description+id
+                                            useContext(CartContext) to access method addCartItem
+                                                                |
+                                                                |
+                                                                |
+                                                            MailItemForm.js
+                                                    method Props: onAddToCart
+                                                          data Props: id
+                               amountInputRef = useRef() to catch the forwarded ref of Input.js COmponent
+                                            calling Input.js with <Input ref={amountInputRef} /> to catch amountInputRef.current.value
+                                                                |
+                                                                |
+                                                                |
+                                        Input.js (const input = React.forwardRef(props, ref) =>{})
+                                                        special props: ref={ref}
+                                                        data props: label + input
 
 ### Code Splitting
 

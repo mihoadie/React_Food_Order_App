@@ -5,26 +5,38 @@ import MealItem from "./MealItem/MealItem";
 const DUMMY_MEALS = [
   {
     id: "m1",
-    name: "Sushi",
+    name: "Erwi' Sushi Box",
     description: "Finest fish and veggies",
     price: 22.99,
   },
   {
     id: "m2",
-    name: "Schnitzel",
+    name: "Erwi's freezy Bier",
     description: "A german specialty!",
-    price: 16.5,
+    price: 6.5,
   },
   {
     id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
+    name: "Erwi's Vegan Burger",
+    description: "Like an American!",
     price: 12.99,
   },
   {
     id: "m4",
     name: "Green Bowl",
     description: "Healthy...and green...",
+    price: 14.99,
+  },
+  {
+    id: "m5",
+    name: "Erwi's Sugar Pie",
+    description: "like a Pie..thon developer",
+    price: 14.99,
+  },
+  {
+    id: "m6",
+    name: "Erwi's Cigare",
+    description: "Smoky...and tasty... ",
     price: 18.99,
   },
 ];
