@@ -8,6 +8,7 @@ aim of the project is to cover Modals, Portals, useReducer(), useState(), useCon
 - using forwardRef (React.forwardRef(props, ref) =>{ }) to catch inputs and ref.current.value from another components = conf /src/components/Meals/MealItemForm.js in association with /src/UI/Input.js
 - managing numbers with .toFixed(2) method for example
 - managing Arrays: .concat() method as an alternative to .push() methods // and also .filter(()=>{}) and .findIndex(()=>{}) methods
+- managing simple GET and POST fetching though firebase realtime data Base. Mandatory Improvments not achieved yet: declaring global URL and using reducers to manage fetches . not processed at that time.
 
 # INSTALL PROJECT
 
@@ -17,8 +18,9 @@ npm install
 
 and we fetch into firebase realtime database for this exercice at the end:
 
-getting meals through https://react-food-9e268-default-rtdb.europe-west1.firebasedatabase.app/meals.json
-adding orders through https://react-food-9e268-default-rtdb.europe-west1.firebasedatabase.app/orders.json
+- getting meals through https://react-food-9e268-default-rtdb.europe-west1.firebasedatabase.app/meals.json /////
+
+- adding orders through https://react-food-9e268-default-rtdb.europe-west1.firebasedatabase.app/orders.json
 
 to do so, you can simply create a firebase project (https://console.firebase.google.com/)
 and make sure that you select the 'TEST mode' for the given created database
