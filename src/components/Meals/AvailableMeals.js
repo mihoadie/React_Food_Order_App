@@ -1,48 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Erwi' Sushi Box",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Erwi's freezy Bier",
-    description: "A german specialty!",
-    price: 6.5,
-  },
-  {
-    id: "m3",
-    name: "Erwi's Vegan Burger",
-    description: "Like an American!",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 14.99,
-  },
-  {
-    id: "m5",
-    name: "Erwi's Sugar Pie",
-    description: "like a Pie..thon developer",
-    price: 14.99,
-  },
-  {
-    id: "m6",
-    name: "Erwi's Cigare",
-    description: "Smoky...and tasty... ",
-    price: 18.99,
-  },
-];
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // as the useEffect is with [] dependancie, it will be lauched when this component is created. thus, at the beginning, we set isLoading to true
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      const response = await fetch(
+        "https://react-food-9e268-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
+      );
+      if (!response.ok) {
+        throw new Error("Http request error while fetching");
+      }
+      const responseData = await response.json();
+      if (
+        !responseData ||
+        responseData === null ||
+        responseData === undefined
+      ) {
+        throw new Error("Http request error while fetching");
+      }
+      const loadedMealsList = [];
+      for (const key in responseData) {
+        loadedMealsList.push({
+          id: key,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price,
+        });
+      }
+      setMeals(loadedMealsList);
+      setIsLoading(false);
+      setError(null);
+    };
+
+    fetchMeals().catch((errors) => {
+      setError(errors.message);
+      setIsLoading(false);
+    });
+    // we cannot encapsulated fetchMeals with try catch {} beacuase we would then need to tipe: try {await fetchMeals()} catch(error{setError(error.message); setIsLoading(false)})
+    //but doing so, with await in front of fetchMeals, would mean that we have to put async in useEffect when declaring fetchMeals. and it is not allowed!!!
+    // so we go with the fetchMeasl().catch()!
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section className={classes.MealsLoading}>
+        <p>Loading ...</p>
+      </section>
+    );
+  }
+  if (error !== null) {
+    return (
+      <section className={classes.MealsError}>
+        <p>{error}</p>
+      </section>
+    );
+  }
+
+  const mealsList = meals.map((meal) => (
     <MealItem
       key={meal.id}
       name={meal.name}

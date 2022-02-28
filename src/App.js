@@ -25,6 +25,11 @@ const App = () => {
   const addItemToCart = (payload) => {
     dispatchIndividualCartList({ type: "CART_INCREMENT", payload: payload });
   };
+  const removeAllItemsFromCart = () => {
+    dispatchIndividualCartList({
+      type: "CLEAR_COMPLETE_CART",
+    });
+  };
 
   return (
     <React.Fragment>
@@ -34,6 +39,7 @@ const App = () => {
           showCartHandler: cartModalHandler,
           addCartItem: addItemToCart,
           removeCartItem: removeItemFromCart,
+          resetCart: removeAllItemsFromCart,
           cartItems: IndividualCartList.items,
           totalAmount: IndividualCartList.totalAmount,
         }}

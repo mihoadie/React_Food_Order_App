@@ -15,6 +15,15 @@ git clone git@github.com:mihoadie/React_Food_Order_App.git
 cd React_Food_Order_App
 npm install
 
+and we fetch into firebase realtime database for this exercice at the end:
+
+getting meals through https://react-food-9e268-default-rtdb.europe-west1.firebasedatabase.app/meals.json
+adding orders through https://react-food-9e268-default-rtdb.europe-west1.firebasedatabase.app/orders.json
+
+to do so, you can simply create a firebase project (https://console.firebase.google.com/)
+and make sure that you select the 'TEST mode' for the given created database
+by changing the links of fetch (in /src/components/Cart/Cart.js file + in /src/components/Meals/AvailableMeals.js) , you will get you own data!
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -77,15 +86,15 @@ To learn React, check out the [React documentation](https://reactjs.org/).
                                      |                     |                            CartItem.js
                                      |                     |                    data props: key+name+price+amount
                                      |                     |                method props: onRemove + onAdd
-                           HeaderCartButton.js              \
-                          useContext + useEffect             \
-                                     |                        \
-                                     |                         \
+                           HeaderCartButton.js              \                               |
+                          useContext + useEffect             \                              |
+                                     |                        \                         Checkout.js
+                                     |                         \              method props: onConfirmOrder={submitOrderHandler}
                                 CartIcon.js                     |\_________________________
                                  (img svg)                      |                          |
                                                                 |                          |
                                                          AvailableMeals                MealSummary.js
-                                            with variable containing Available MealsList
+                                            with Fetch to get Meals from firebase
                                                                 |
                                                                 |
                                                             Card.js

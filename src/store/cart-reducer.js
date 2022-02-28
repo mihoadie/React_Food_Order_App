@@ -64,6 +64,10 @@ export const cartReducer = (state, action) => {
       totalAmount: updatedTotalAmount,
     };
   }
+  // to clear the cart after order submitted correctly (confere cart.js)
+  if (action.type === "CLEAR_COMPLETE_CART") {
+    return defaultIndividualCartList;
+  }
   // by default we return empty cart
   return defaultIndividualCartList;
 };
